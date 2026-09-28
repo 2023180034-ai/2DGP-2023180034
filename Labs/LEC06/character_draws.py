@@ -69,7 +69,8 @@ def draw_tri_bottom(points):
     pass
 
 def draw_tri_right(points):
-    
+    x2, y2 = points[1]
+    x3, y3 = points[2]
     pass
 
 def draw_tri_left():
