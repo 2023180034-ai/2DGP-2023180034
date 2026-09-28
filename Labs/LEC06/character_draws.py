@@ -33,15 +33,16 @@ def draw_top():
 
 def draw_right():
     print("RIGHT")
-
+    for y in range(500, 100, -1):
+        draw_character(600, y)
 
 def draw_bottom():
     print("BOTTOM")
-
+  
    
 def draw_left():
     print("LEFT")
-
+  
 
 def move_rectangle():
     print("RECTANGLE")
