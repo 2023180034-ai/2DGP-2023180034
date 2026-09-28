@@ -75,6 +75,7 @@ def draw_tri_right(points):
         t = i / 100
         cx = x2 + (x3 - x2) * t
         cy = y2 + (y3 - y2) * t
+        draw_character(cx, cy)
     pass
 
 def draw_tri_left():
