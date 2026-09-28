@@ -55,10 +55,15 @@ def move_rectangle():
     draw_left()
     pass
 
-def draw_tri_bottom():
-    for t in range (0, 1, 0.1):
-        cx = x[0] + (x[1] - x[0]) * t
-        cy = y[0] + (y[1] - y[0]) * t
+
+
+def draw_tri_bottom(points):
+    x1, y1 = points[0]
+    x2, y2 = points[1]
+    for i in range(101):
+        t = i / 100
+        cx = x1 + (x2 - x1) * t
+        cy = y1 + (y2 - y1) * t
         draw_character(cx, cy)
 
     pass
@@ -73,9 +78,13 @@ def draw_tri_left():
 
 def move_triangle():
     print("TRIANGLE")
-    x[3] = {100, 700, 400}
-    y[3] = {100, 100, 500}
-    draw_tri_bottom()
+    points = [(100, 100), (700, 100), (400, 500)]
+    
+    x1, y1 = points[0]
+    x2, y2 = points[1]
+    x3, y3 = points[2]
+
+    draw_tri_bottom(points)
     draw_tri_right()
     draw_tri_left()
     pass
