@@ -56,7 +56,11 @@ def move_rectangle():
     pass
 
 def draw_tri_bottom():
-    
+    for t in range (0, 1, 0.1):
+        cx = x[0] + (x[1] - x[0]) * t
+        cy = y[0] + (y[1] - y[0]) * t
+        draw_character(cx, cy)
+
     pass
 
 def draw_tri_right():
