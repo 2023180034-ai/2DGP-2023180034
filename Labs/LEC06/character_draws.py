@@ -55,11 +55,11 @@ def move_rectangle():
     draw_left()
     pass
 
-def draw_tri_right():
+def draw_tri_bottom():
     
     pass
 
-def draw_tri_bottom():
+def draw_tri_right():
     
     pass
 
@@ -71,8 +71,8 @@ def move_triangle():
     print("TRIANGLE")
     x[3] = {100, 700, 400}
     y[3] = {100, 100, 500}
-    draw_tri_right()
     draw_tri_bottom()
+    draw_tri_right()
     draw_tri_left()
     pass
 
