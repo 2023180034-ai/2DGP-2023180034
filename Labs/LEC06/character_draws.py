@@ -78,7 +78,7 @@ def draw_tri_right(points):
         draw_character(cx, cy)
     pass
 
-def draw_tri_left():
+def draw_tri_left(points):
 
     pass
 
@@ -92,7 +92,7 @@ def move_triangle():
 
     draw_tri_bottom(points)
     draw_tri_right(points)
-    draw_tri_left()
+    draw_tri_left(points)
     pass
 
 while True:
