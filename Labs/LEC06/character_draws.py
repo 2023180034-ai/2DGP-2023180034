@@ -43,7 +43,8 @@ def draw_bottom():
    
 def draw_left():
     print("LEFT")
-  
+    for y in range(100, 500, 1):
+        draw_character(200, y)
 
 def move_rectangle():
     print("RECTANGLE")
