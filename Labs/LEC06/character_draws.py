@@ -85,6 +85,7 @@ def draw_tri_left(points):
         t = i / 100
         cx = x3 + (x1 - x3) * t
         cy = y3 + (y1 - y3) * t
+        draw_character(cx, cy)
     pass
 
 def move_triangle():
