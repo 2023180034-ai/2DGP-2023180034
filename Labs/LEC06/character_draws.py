@@ -56,10 +56,16 @@ def move_rectangle():
     pass
 
 def draw_tri_right():
+    
+    pass
 
 def draw_tri_bottom():
     
+    pass
+
 def draw_tri_left():
+
+    pass
 
 def move_triangle():
     print("TRIANGLE")
