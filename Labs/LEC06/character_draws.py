@@ -2,22 +2,16 @@
 from pico2d import *
 import math
 
-def draw_top():
-    pass
 
-def draw_right():
-    pass
-    
-def draw_bottom():
-    pass
-   
-def draw_left():
-    pass
-    
 
 # 맨처음 해야할 일은.
 open_canvas(800, 600)
 character = load_image('character.png')
+
+def draw_character(x, y):
+    clear_canvas()
+    character.draw(x, y)
+    update_canvas()
 
 def move_circle():
     print("CIRCLE")
@@ -28,12 +22,26 @@ def move_circle():
         x = 400 + 200 * math.cos(theta)
         y = 300 + 200 * math.sin(theta)
 
-        clear_canvas()
-        character.draw(x, y)
-
-        update_canvas()
+        draw_character(x, y)
         delay(0.01)
     pass
+
+def draw_top():
+    print("TOP")
+    for x in range(200, 600, 1):
+        draw_character(x, 500)
+
+def draw_right():
+    print("RIGHT")
+
+
+def draw_bottom():
+    print("BOTTOM")
+
+   
+def draw_left():
+    print("LEFT")
+
 
 def move_rectangle():
     print("RECTANGLE")
@@ -48,7 +56,7 @@ def move_triangle():
     pass
 
 while True:
-    move_circle()
+    # move_circle()
     move_rectangle()
     move_triangle()
     pass
