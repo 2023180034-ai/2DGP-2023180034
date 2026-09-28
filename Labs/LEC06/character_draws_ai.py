@@ -35,7 +35,16 @@ def move_rectangle():
 
 
 def move_triangle():
-    pass
+    points = [(100, 100), (700, 100), (400, 500)]
+
+    for i in range(3):
+        x1, y1 = points[i]
+        x2, y2 = points[(i + 1) % 3]
+
+        for t in range(101):
+            x = x1 + (x2 - x1) * t / 100
+            y = y1 + (y2 - y1) * t / 100
+            draw_character(x, y)
 
 
 def move_sequence():
