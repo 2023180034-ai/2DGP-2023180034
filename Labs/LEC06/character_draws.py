@@ -24,7 +24,6 @@ def move_circle():
         y = 300 + 200 * math.sin(theta)
 
         draw_character(x, y)
-        delay(0.01)
     pass
 
 def draw_top():
