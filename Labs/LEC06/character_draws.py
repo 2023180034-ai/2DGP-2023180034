@@ -71,6 +71,8 @@ def draw_tri_bottom(points):
 def draw_tri_right(points):
     x2, y2 = points[1]
     x3, y3 = points[2]
+    for i  in range(101):
+        t = i / 100
     pass
 
 def draw_tri_left():
