@@ -69,6 +69,8 @@ def draw_tri_left():
 
 def move_triangle():
     print("TRIANGLE")
+    x[3] = {100, 700, 400}
+    y[3] = {100, 100, 500}
     draw_tri_right()
     draw_tri_bottom()
     draw_tri_left()
