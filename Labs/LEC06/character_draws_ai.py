@@ -21,7 +21,17 @@ def move_circle():
 
 
 def move_rectangle():
-    pass
+    for x in range(200, 600, 5):
+        draw_character(x, 500)
+
+    for y in range(500, 100, -5):
+        draw_character(600, y)
+
+    for x in range(600, 200, -5):
+        draw_character(x, 100)
+
+    for y in range(100, 500, 5):
+        draw_character(200, y)
 
 
 def move_triangle():
