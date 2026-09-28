@@ -81,6 +81,8 @@ def draw_tri_right(points):
 def draw_tri_left(points):
     x3, y3 = points[2]
     x1, y1 = points[0]
+    for i in range(101):
+        t = i / 100
     pass
 
 def move_triangle():
