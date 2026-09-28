@@ -68,7 +68,7 @@ def draw_tri_bottom(points):
 
     pass
 
-def draw_tri_right():
+def draw_tri_right(points):
     
     pass
 
@@ -85,7 +85,7 @@ def move_triangle():
     x3, y3 = points[2]
 
     draw_tri_bottom(points)
-    draw_tri_right()
+    draw_tri_right(points)
     draw_tri_left()
     pass
 
