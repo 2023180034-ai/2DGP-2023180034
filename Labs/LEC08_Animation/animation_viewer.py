@@ -1,7 +1,12 @@
 from pico2d import *
 
 def character_idle():
-	pass
+	global idle_frame
+	for idle_frame in range(4):
+		clear_canvas()
+		idle_image.clip_draw(idle_start_points[idle_frame], 0, idle_widths[idle_frame], idle_height, 400, 300)
+		update_canvas()
+		delay(0.1)
 
 def character_walk():
 	pass
