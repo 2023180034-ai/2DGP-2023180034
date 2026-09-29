@@ -1,6 +1,7 @@
 from pico2d import *
 
 def draw_animation_frame(image, start_x, frame_width, frame_height):
+	background_image.draw(400, 300)
 	image.clip_draw(start_x, 0, frame_width, frame_height, 400, 300)
 
 def character_idle():
@@ -60,6 +61,7 @@ def character_roll():
 
 open_canvas()
 
+background_image = load_image('background.png')
 idle_image = load_image('idle.png')
 walk_image = load_image('walk.png')
 jump_image = load_image('jump.png')
