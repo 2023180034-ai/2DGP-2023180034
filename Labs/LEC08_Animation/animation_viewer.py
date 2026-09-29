@@ -33,7 +33,12 @@ def character_attack():
 		delay(0.1)
 
 def character_roll():
-	pass
+	global roll_frame
+	for roll_frame in range(7):
+		clear_canvas()
+		roll_image.clip_draw(roll_start_points[roll_frame], 0, roll_widths[roll_frame], roll_height, 400, 300)
+		update_canvas()
+		delay(0.1)
 
 open_canvas()
 
