@@ -17,7 +17,12 @@ def character_walk():
 		delay(0.1)
 
 def character_jump():
-	pass
+	global jump_frame
+	for jump_frame in range(6):
+		clear_canvas()
+		jump_image.clip_draw(jump_start_points[jump_frame], 0, jump_widths[jump_frame], jump_height, 400, 300)
+		update_canvas()
+		delay(0.1)
 
 def character_attack():
 	pass
