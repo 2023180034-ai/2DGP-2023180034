@@ -9,7 +9,12 @@ def character_idle():
 		delay(0.1)
 
 def character_walk():
-	pass
+	global walk_frame
+	for walk_frame in range(8):
+		clear_canvas()
+		walk_image.clip_draw(walk_start_points[walk_frame], 0, walk_widths[walk_frame], walk_height, 400, 300)
+		update_canvas()
+		delay(0.1)
 
 def character_jump():
 	pass
