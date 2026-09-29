@@ -23,6 +23,11 @@ jump_image = load_image('jump.png')
 attack_image = load_image('attack.png')
 roll_image = load_image('roll.png')
 
+idle_height = 124
+idle_widths = [88, 84, 84, 84]
+idle_start_points = [0, 88, 172, 256]
+idle_frame = 0
+
 while True:
 	character_idle()
 	character_walk()
