@@ -17,6 +17,12 @@ def character_roll():
 
 open_canvas()
 
+idle_image = load_image('idle.png')
+walk_image = load_image('walk.png')
+jump_image = load_image('jump.png')
+attack_image = load_image('attack.png')
+roll_image = load_image('roll.png')
+
 while True:
 	character_idle()
 	character_walk()
