@@ -1,7 +1,9 @@
 from pico2d import *
 
 def character_idle():
-	global idle_frame
+	idle_height = 124
+	idle_widths = [88, 84, 84, 84]
+	idle_start_points = [0, 88, 172, 256]
 	for repetition in range(2):
 		for idle_frame in range(4):
 			clear_canvas()
@@ -10,7 +12,9 @@ def character_idle():
 			delay(0.1)
 
 def character_walk():
-	global walk_frame
+	walk_height = 128
+	walk_widths = [96, 88, 84, 84, 88, 84, 88, 92]
+	walk_start_points = [0, 96, 184, 268, 352, 440, 524, 612]
 	for repetition in range(2):
 		for walk_frame in range(8):
 			clear_canvas()
@@ -19,7 +23,9 @@ def character_walk():
 			delay(0.1)
 
 def character_jump():
-	global jump_frame
+	jump_height = 192
+	jump_widths = [84, 84, 88, 88, 88, 96]
+	jump_start_points = [0, 84, 168, 256, 344, 432]
 	for repetition in range(2):
 		for jump_frame in range(6):
 			clear_canvas()
@@ -28,7 +34,9 @@ def character_jump():
 			delay(0.1)
 
 def character_attack():
-	global attack_frame
+	attack_height = 140
+	attack_widths = [92, 112, 112, 140, 120, 112]
+	attack_start_points = [0, 92, 204, 316, 456, 576]
 	for repetition in range(2):
 		for attack_frame in range(6):
 			clear_canvas()
@@ -37,7 +45,9 @@ def character_attack():
 			delay(0.1)
 
 def character_roll():
-	global roll_frame
+	roll_height = 120
+	roll_widths = [88, 112, 124, 128, 108, 112, 88]
+	roll_start_points = [0, 88, 200, 324, 452, 560, 672]
 	for repetition in range(2):
 		for roll_frame in range(7):
 			clear_canvas()
@@ -52,27 +62,6 @@ walk_image = load_image('walk.png')
 jump_image = load_image('jump.png')
 attack_image = load_image('attack.png')
 roll_image = load_image('roll.png')
-
-idle_height = 124
-idle_widths = [88, 84, 84, 84]
-idle_start_points = [0, 88, 172, 256]
-idle_frame = 0
-walk_height = 128
-walk_widths = [96, 88, 84, 84, 88, 84, 88, 92]
-walk_start_points = [0, 96, 184, 268, 352, 440, 524, 612]
-walk_frame = 0
-jump_height = 192
-jump_widths = [84, 84, 88, 88, 88, 96]
-jump_start_points = [0, 84, 168, 256, 344, 432]
-jump_frame = 0
-attack_height = 140
-attack_widths = [92, 112, 112, 140, 120, 112]
-attack_start_points = [0, 92, 204, 316, 456, 576]
-attack_frame = 0
-roll_height = 120
-roll_widths = [88, 112, 124, 128, 108, 112, 88]
-roll_start_points = [0, 88, 200, 324, 452, 560, 672]
-roll_frame = 0
 
 while True:
 	character_idle()
