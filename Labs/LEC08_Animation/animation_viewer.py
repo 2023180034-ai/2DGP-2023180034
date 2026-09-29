@@ -32,6 +32,10 @@ idle_height = 124
 idle_widths = [88, 84, 84, 84]
 idle_start_points = [0, 88, 172, 256]
 idle_frame = 0
+walk_height = 128
+walk_widths = [96, 88, 84, 84, 88, 84, 88, 92]
+walk_start_points = [0, 96, 184, 268, 352, 440, 524, 612]
+walk_frame = 0
 
 while True:
 	character_idle()
