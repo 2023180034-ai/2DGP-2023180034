@@ -10,7 +10,7 @@ def character_idle():
 	for repetition in range(2):
 		for idle_frame in range(4):
 			clear_canvas()
-			idle_image.clip_draw(idle_start_points[idle_frame], 0, idle_widths[idle_frame], idle_height, 400, 300)
+			draw_animation_frame(idle_image, idle_start_points[idle_frame], idle_widths[idle_frame], idle_height)
 			update_canvas()
 			delay(0.1)
 
@@ -21,7 +21,7 @@ def character_walk():
 	for repetition in range(2):
 		for walk_frame in range(8):
 			clear_canvas()
-			walk_image.clip_draw(walk_start_points[walk_frame], 0, walk_widths[walk_frame], walk_height, 400, 300)
+			draw_animation_frame(walk_image, walk_start_points[walk_frame], walk_widths[walk_frame], walk_height)
 			update_canvas()
 			delay(0.1)
 
@@ -32,7 +32,7 @@ def character_jump():
 	for repetition in range(2):
 		for jump_frame in range(6):
 			clear_canvas()
-			jump_image.clip_draw(jump_start_points[jump_frame], 0, jump_widths[jump_frame], jump_height, 400, 300)
+			draw_animation_frame(jump_image, jump_start_points[jump_frame], jump_widths[jump_frame], jump_height)
 			update_canvas()
 			delay(0.1)
 
@@ -43,7 +43,7 @@ def character_attack():
 	for repetition in range(2):
 		for attack_frame in range(6):
 			clear_canvas()
-			attack_image.clip_draw(attack_start_points[attack_frame], 0, attack_widths[attack_frame], attack_height, 400, 300)
+			draw_animation_frame(attack_image, attack_start_points[attack_frame], attack_widths[attack_frame], attack_height)
 			update_canvas()
 			delay(0.1)
 
@@ -54,7 +54,7 @@ def character_roll():
 	for repetition in range(2):
 		for roll_frame in range(7):
 			clear_canvas()
-			roll_image.clip_draw(roll_start_points[roll_frame], 0, roll_widths[roll_frame], roll_height, 400, 300)
+			draw_animation_frame(roll_image, roll_start_points[roll_frame], roll_widths[roll_frame], roll_height)
 			update_canvas()
 			delay(0.1)
 
