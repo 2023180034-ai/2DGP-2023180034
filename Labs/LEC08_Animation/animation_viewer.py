@@ -1,7 +1,7 @@
 from pico2d import *
 
 def draw_animation_frame(image, start_x, frame_width, frame_height):
-	pass
+	image.clip_draw(start_x, 0, frame_width, frame_height, 400, 300)
 
 def character_idle():
 	idle_height = 124
