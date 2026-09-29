@@ -1,5 +1,8 @@
 from pico2d import *
 
+def draw_animation_frame(image, start_x, frame_width, frame_height):
+	pass
+
 def character_idle():
 	idle_height = 124
 	idle_widths = [88, 84, 84, 84]
