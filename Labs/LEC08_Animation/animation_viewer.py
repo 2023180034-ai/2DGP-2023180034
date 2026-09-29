@@ -50,6 +50,10 @@ jump_height = 192
 jump_widths = [84, 84, 88, 88, 88, 96]
 jump_start_points = [0, 84, 168, 256, 344, 432]
 jump_frame = 0
+attack_height = 140
+attack_widths = [92, 112, 112, 140, 120, 112]
+attack_start_points = [0, 92, 204, 316, 456, 576]
+attack_frame = 0
 
 while True:
 	character_idle()
