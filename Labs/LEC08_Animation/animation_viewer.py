@@ -41,6 +41,10 @@ walk_height = 128
 walk_widths = [96, 88, 84, 84, 88, 84, 88, 92]
 walk_start_points = [0, 96, 184, 268, 352, 440, 524, 612]
 walk_frame = 0
+jump_height = 192
+jump_widths = [84, 84, 88, 88, 88, 96]
+jump_start_points = [0, 84, 168, 256, 344, 432]
+jump_frame = 0
 
 while True:
 	character_idle()
