@@ -2,43 +2,48 @@ from pico2d import *
 
 def character_idle():
 	global idle_frame
-	for idle_frame in range(4):
-		clear_canvas()
-		idle_image.clip_draw(idle_start_points[idle_frame], 0, idle_widths[idle_frame], idle_height, 400, 300)
-		update_canvas()
-		delay(0.1)
+	for repetition in range(2):
+		for idle_frame in range(4):
+			clear_canvas()
+			idle_image.clip_draw(idle_start_points[idle_frame], 0, idle_widths[idle_frame], idle_height, 400, 300)
+			update_canvas()
+			delay(0.1)
 
 def character_walk():
 	global walk_frame
-	for walk_frame in range(8):
-		clear_canvas()
-		walk_image.clip_draw(walk_start_points[walk_frame], 0, walk_widths[walk_frame], walk_height, 400, 300)
-		update_canvas()
-		delay(0.1)
+	for repetition in range(2):
+		for walk_frame in range(8):
+			clear_canvas()
+			walk_image.clip_draw(walk_start_points[walk_frame], 0, walk_widths[walk_frame], walk_height, 400, 300)
+			update_canvas()
+			delay(0.1)
 
 def character_jump():
 	global jump_frame
-	for jump_frame in range(6):
-		clear_canvas()
-		jump_image.clip_draw(jump_start_points[jump_frame], 0, jump_widths[jump_frame], jump_height, 400, 300)
-		update_canvas()
-		delay(0.1)
+	for repetition in range(2):
+		for jump_frame in range(6):
+			clear_canvas()
+			jump_image.clip_draw(jump_start_points[jump_frame], 0, jump_widths[jump_frame], jump_height, 400, 300)
+			update_canvas()
+			delay(0.1)
 
 def character_attack():
 	global attack_frame
-	for attack_frame in range(6):
-		clear_canvas()
-		attack_image.clip_draw(attack_start_points[attack_frame], 0, attack_widths[attack_frame], attack_height, 400, 300)
-		update_canvas()
-		delay(0.1)
+	for repetition in range(2):
+		for attack_frame in range(6):
+			clear_canvas()
+			attack_image.clip_draw(attack_start_points[attack_frame], 0, attack_widths[attack_frame], attack_height, 400, 300)
+			update_canvas()
+			delay(0.1)
 
 def character_roll():
 	global roll_frame
-	for roll_frame in range(7):
-		clear_canvas()
-		roll_image.clip_draw(roll_start_points[roll_frame], 0, roll_widths[roll_frame], roll_height, 400, 300)
-		update_canvas()
-		delay(0.1)
+	for repetition in range(2):
+		for roll_frame in range(7):
+			clear_canvas()
+			roll_image.clip_draw(roll_start_points[roll_frame], 0, roll_widths[roll_frame], roll_height, 400, 300)
+			update_canvas()
+			delay(0.1)
 
 open_canvas()
 
