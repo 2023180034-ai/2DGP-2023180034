@@ -59,6 +59,10 @@ attack_height = 140
 attack_widths = [92, 112, 112, 140, 120, 112]
 attack_start_points = [0, 92, 204, 316, 456, 576]
 attack_frame = 0
+roll_height = 120
+roll_widths = [88, 112, 124, 128, 108, 112, 88]
+roll_start_points = [0, 88, 200, 324, 452, 560, 672]
+roll_frame = 0
 
 while True:
 	character_idle()
