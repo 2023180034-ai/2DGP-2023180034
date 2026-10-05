@@ -252,12 +252,13 @@ def main():
     try:
         sprite_sheet = load_sprite_sheet()
         validate_motions(sprite_sheet)
+        player = AnimationPlayer()
         while True:
             events = get_events()
             if any(event.type == SDL_QUIT for event in events):
                 break
             clear_canvas()
-            draw_frame(sprite_sheet, MOTIONS[0].frames[0])
+            draw_frame(sprite_sheet, player.update(get_time()))
             update_canvas()
     finally:
         close_canvas()
