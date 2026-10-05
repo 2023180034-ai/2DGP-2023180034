@@ -183,6 +183,22 @@ def validate_motions(sprite_sheet):
                 raise ValueError(f"프레임이 스프라이트 시트 경계를 벗어납니다: {motion.name}")
 
 
+def draw_frame(sprite_sheet, frame):
+    frame_bottom = sprite_sheet.h - frame.y - frame.height
+    draw_x = get_canvas_width() // 2
+    draw_y = get_canvas_height() // 2
+    sprite_sheet.clip_draw(
+        frame.x,
+        frame_bottom,
+        frame.width,
+        frame.height,
+        draw_x,
+        draw_y,
+        frame.width * SCALE_FACTOR,
+        frame.height * SCALE_FACTOR,
+    )
+
+
 def load_sprite_sheet():
     if not SPRITE_PATH.is_file():
         raise FileNotFoundError(f"스프라이트 파일을 찾을 수 없습니다: {SPRITE_PATH}")
