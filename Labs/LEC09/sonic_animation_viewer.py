@@ -243,6 +243,7 @@ def load_sprite_sheet():
 def main():
     open_canvas(*get_canvas_size())
     hide_lattice()
+    sprite_sheet = None
 
     try:
         sprite_sheet = load_sprite_sheet()
@@ -256,6 +257,7 @@ def main():
             draw_frame(sprite_sheet, player.update(get_time()))
             update_canvas()
     finally:
+        sprite_sheet = None
         close_canvas()
 
 
