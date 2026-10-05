@@ -8,9 +8,8 @@ from pico2d import *
 BASE_DIR = Path(__file__).resolve().parent
 SPRITE_PATH = BASE_DIR / "sonic-sprite.png"
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
 SCALE_FACTOR = 4
+CANVAS_PADDING = 32
 FRAME_INTERVAL = 0.1
 MOTION_REPEAT_COUNT = 5
 MOTION_PAUSE_SECONDS = 1.0
@@ -157,6 +156,15 @@ MOTIONS = (
         ),
     ),
 )
+
+
+def get_canvas_size():
+    max_width = max(frame.width for motion in MOTIONS for frame in motion.frames)
+    max_height = max(frame.height for motion in MOTIONS for frame in motion.frames)
+    return (
+        max_width * SCALE_FACTOR + CANVAS_PADDING * 2,
+        max_height * SCALE_FACTOR + CANVAS_PADDING * 2,
+    )
 
 
 def load_sprite_sheet():
