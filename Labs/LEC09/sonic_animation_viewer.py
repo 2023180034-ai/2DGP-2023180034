@@ -29,6 +29,43 @@ class Motion:
     frames: tuple[Frame, ...]
 
 
+class AnimationPlayer:
+    def __init__(self, motions=None):
+        if motions is None:
+            motions = MOTIONS
+        if not motions:
+            raise ValueError("재생할 모션이 정의되지 않았습니다.")
+        self.motions = motions
+        self.motion_index = 0
+        self.frame_index = 0
+        self.repetition = 0
+        self.current_frame = motions[0].frames[0]
+        self.next_frame_time = 0.0
+        self.pause_until = None
+
+    def update(self, now):
+        if self.pause_until is not None and now < self.pause_until:
+            return self.current_frame
+        if now < self.next_frame_time:
+            return self.current_frame
+        self.pause_until = None
+
+        motion = self.motions[self.motion_index]
+        self.current_frame = motion.frames[self.frame_index]
+        self.frame_index += 1
+        self.next_frame_time = now + FRAME_INTERVAL
+
+        if self.frame_index == len(motion.frames):
+            self.frame_index = 0
+            self.repetition += 1
+            if self.repetition == MOTION_REPEAT_COUNT:
+                self.repetition = 0
+                self.motion_index = (self.motion_index + 1) % len(self.motions)
+                self.pause_until = now + MOTION_PAUSE_SECONDS
+
+        return self.current_frame
+
+
 MOTIONS = (
     Motion(
         "달리기",
