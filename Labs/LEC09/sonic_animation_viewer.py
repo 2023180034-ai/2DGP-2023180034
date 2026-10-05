@@ -30,6 +30,21 @@ class Motion:
     frames: tuple[Frame, ...]
 
 
+MOTIONS = (
+    Motion(
+        "구르기",
+        (
+            Frame(0, 204, 32, 30),
+            Frame(35, 204, 31, 30),
+            Frame(69, 204, 31, 30),
+            Frame(104, 204, 31, 30),
+            Frame(138, 204, 31, 30),
+            Frame(173, 204, 31, 30),
+        ),
+    ),
+)
+
+
 def load_sprite_sheet():
     if not SPRITE_PATH.is_file():
         raise FileNotFoundError(f"스프라이트 파일을 찾을 수 없습니다: {SPRITE_PATH}")
