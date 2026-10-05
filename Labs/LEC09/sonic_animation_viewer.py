@@ -209,16 +209,18 @@ def load_sprite_sheet():
 
 
 def main():
-    open_canvas(WINDOW_WIDTH, WINDOW_HEIGHT)
+    open_canvas(*get_canvas_size())
     hide_lattice()
 
     try:
-        load_sprite_sheet()
+        sprite_sheet = load_sprite_sheet()
+        validate_motions(sprite_sheet)
         while True:
             events = get_events()
             if any(event.type == SDL_QUIT for event in events):
                 break
             clear_canvas()
+            draw_frame(sprite_sheet, MOTIONS[0].frames[0])
             update_canvas()
     finally:
         close_canvas()
