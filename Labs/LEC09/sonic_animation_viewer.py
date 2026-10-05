@@ -202,7 +202,10 @@ def draw_frame(sprite_sheet, frame):
 def load_sprite_sheet():
     if not SPRITE_PATH.is_file():
         raise FileNotFoundError(f"스프라이트 파일을 찾을 수 없습니다: {SPRITE_PATH}")
-    return load_image(str(SPRITE_PATH))
+    try:
+        return load_image(str(SPRITE_PATH))
+    except Exception as error:
+        raise RuntimeError(f"스프라이트 파일을 불러오지 못했습니다: {SPRITE_PATH}") from error
 
 
 def main():
