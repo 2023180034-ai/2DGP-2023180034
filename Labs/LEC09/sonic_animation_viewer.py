@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from dataclasses import dataclass
+
 from pico2d import *
 
 
@@ -8,6 +10,18 @@ SPRITE_PATH = BASE_DIR / "sonic-sprite.png"
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
+SCALE_FACTOR = 4
+FRAME_INTERVAL = 0.1
+MOTION_REPEAT_COUNT = 5
+MOTION_PAUSE_SECONDS = 1.0
+
+
+@dataclass(frozen=True)
+class Frame:
+    x: int
+    y: int
+    width: int
+    height: int
 
 
 def load_sprite_sheet():
