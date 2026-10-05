@@ -167,6 +167,22 @@ def get_canvas_size():
     )
 
 
+def validate_motions(sprite_sheet):
+    if not MOTIONS:
+        raise ValueError("재생할 모션이 정의되지 않았습니다.")
+
+    for motion in MOTIONS:
+        if not motion.frames:
+            raise ValueError(f"모션에 프레임이 없습니다: {motion.name}")
+        for frame in motion.frames:
+            if frame.width <= 0 or frame.height <= 0:
+                raise ValueError(f"프레임 크기가 올바르지 않습니다: {motion.name}")
+            if frame.x < 0 or frame.y < 0:
+                raise ValueError(f"프레임 좌표가 올바르지 않습니다: {motion.name}")
+            if frame.x + frame.width > sprite_sheet.w or frame.y + frame.height > sprite_sheet.h:
+                raise ValueError(f"프레임이 스프라이트 시트 경계를 벗어납니다: {motion.name}")
+
+
 def load_sprite_sheet():
     if not SPRITE_PATH.is_file():
         raise FileNotFoundError(f"스프라이트 파일을 찾을 수 없습니다: {SPRITE_PATH}")
