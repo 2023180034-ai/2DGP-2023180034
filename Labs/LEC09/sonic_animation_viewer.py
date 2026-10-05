@@ -24,6 +24,12 @@ class Frame:
     height: int
 
 
+@dataclass(frozen=True)
+class Motion:
+    name: str
+    frames: tuple[Frame, ...]
+
+
 def load_sprite_sheet():
     if not SPRITE_PATH.is_file():
         raise FileNotFoundError(f"스프라이트 파일을 찾을 수 없습니다: {SPRITE_PATH}")
