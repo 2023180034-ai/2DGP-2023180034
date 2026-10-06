@@ -67,25 +67,57 @@ def handle_events(running, moving_right, moving_left, up_pressed, down_pressed):
 	return running, moving_right, moving_left, up_pressed, down_pressed
 
 
+def move_character(character_x, character_y, move_x, move_y, delta_time, facing_direction):
+	movement_length = hypot(move_x, move_y)
+	if movement_length == 0:
+		return character_x, character_y
+
+	movement_direction = move_x if move_x != 0 else facing_direction
+	animation_name = "run_right" if movement_direction > 0 else "run_left"
+	min_x, min_y, max_x, max_y = RUN_FRAME_VISIBLE_BOUNDS[animation_name]
+	scale = CHARACTER_DISPLAY_SIZE / CHARACTER_FRAME_SIZE
+	left_extent = (CHARACTER_FRAME_SIZE / 2 - min_x) * scale
+	right_extent = (max_x + 1 - CHARACTER_FRAME_SIZE / 2) * scale
+	top_extent = (CHARACTER_FRAME_SIZE / 2 - min_y) * scale
+	bottom_extent = (max_y + 1 - CHARACTER_FRAME_SIZE / 2) * scale
+	step = CHARACTER_SPEED * delta_time / movement_length
+
+	character_x = max(
+		left_extent,
+		min(CANVAS_WIDTH - right_extent, character_x + move_x * step),
+	)
+	character_y = max(
+		bottom_extent,
+		min(CANVAS_HEIGHT - top_extent, character_y + move_y * step),
+	)
+	return character_x, character_y
+
+
+def get_animation_name(is_animating, direction):
+	state = "run" if is_animating else "idle"
+	orientation = "right" if direction > 0 else "left"
+	return f"{state}_{orientation}"
+
+
 def main():
 	open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
-	background = load_image(str(BACKGROUND_PATH))
-	character_sheet = load_image(str(CHARACTER_PATH))
-	animation_frames = create_animation_frames(character_sheet.h)
-	running = True
-	moving_right = False
-	moving_left = False
-	up_pressed = False
-	down_pressed = False
-	character_x = CANVAS_WIDTH // 2
-	character_y = CANVAS_HEIGHT // 2
-	facing_direction = 1
-	previous_animation_name = None
-	frame_index = 0
-	next_frame_time = get_time()
-	previous_time = get_time()
-
 	try:
+		background = load_image(str(BACKGROUND_PATH))
+		character_sheet = load_image(str(CHARACTER_PATH))
+		animation_frames = create_animation_frames(character_sheet.h)
+		running = True
+		moving_right = False
+		moving_left = False
+		up_pressed = False
+		down_pressed = False
+		character_x = CANVAS_WIDTH // 2
+		character_y = CANVAS_HEIGHT // 2
+		facing_direction = 1
+		previous_animation_name = None
+		frame_index = 0
+		next_frame_time = get_time()
+		previous_time = get_time()
+
 		while running:
 			running, moving_right, moving_left, up_pressed, down_pressed = handle_events(
 				running,
@@ -107,38 +139,18 @@ def main():
 
 			previous_x = character_x
 			previous_y = character_y
-			movement_length = hypot(move_x, move_y)
-			if movement_length != 0:
-				movement_step = CHARACTER_SPEED * delta_time / movement_length
-				movement_direction = move_x if move_x != 0 else facing_direction
-				movement_animation = "run_right" if movement_direction > 0 else "run_left"
-				min_x, min_y, max_x, max_y = RUN_FRAME_VISIBLE_BOUNDS[movement_animation]
-				scale = CHARACTER_DISPLAY_SIZE / CHARACTER_FRAME_SIZE
-				left_extent = (CHARACTER_FRAME_SIZE / 2 - min_x) * scale
-				right_extent = (max_x + 1 - CHARACTER_FRAME_SIZE / 2) * scale
-				top_extent = (CHARACTER_FRAME_SIZE / 2 - min_y) * scale
-				bottom_extent = (max_y + 1 - CHARACTER_FRAME_SIZE / 2) * scale
-				character_x = max(
-					left_extent,
-					min(
-						CANVAS_WIDTH - right_extent,
-						character_x + move_x * movement_step,
-					),
-				)
-				character_y = max(
-					bottom_extent,
-					min(
-						CANVAS_HEIGHT - top_extent,
-						character_y + move_y * movement_step,
-					),
-				)
+			character_x, character_y = move_character(
+				character_x,
+				character_y,
+				move_x,
+				move_y,
+				delta_time,
+				facing_direction,
+			)
 
 			is_animating = character_x != previous_x or character_y != previous_y
 			animation_direction = move_x if move_x != 0 else facing_direction
-			if is_animating:
-				animation_name = "run_right" if animation_direction > 0 else "run_left"
-			else:
-				animation_name = "idle_right" if facing_direction > 0 else "idle_left"
+			animation_name = get_animation_name(is_animating, animation_direction)
 
 			if animation_name != previous_animation_name:
 				frame_index = 0
