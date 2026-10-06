@@ -74,7 +74,7 @@ def main():
 	character_x = CANVAS_WIDTH // 2
 	character_y = CANVAS_HEIGHT // 2
 	facing_direction = 1
-	previous_animation_direction = None
+	previous_animation_name = None
 	frame_index = 0
 	next_frame_time = get_time()
 
@@ -98,15 +98,17 @@ def main():
 			is_animating = direction != 0 or up_pressed or down_pressed
 			animation_direction = direction if direction != 0 else facing_direction
 			if is_animating:
-				if animation_direction != previous_animation_direction:
-					frame_index = 0
-					next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
-				elif current_time >= next_frame_time:
-					frame_index = (frame_index + 1) % ANIMATION_FRAME_COUNT
-					next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
+				animation_name = "run_right" if animation_direction > 0 else "run_left"
 			else:
+				animation_name = "idle_right" if facing_direction > 0 else "idle_left"
+
+			if animation_name != previous_animation_name:
 				frame_index = 0
-			previous_animation_direction = animation_direction if is_animating else None
+				next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
+			elif current_time >= next_frame_time:
+				frame_index = (frame_index + 1) % len(animation_frames[animation_name])
+				next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
+			previous_animation_name = animation_name
 
 			clear_canvas()
 			background.draw(
@@ -115,12 +117,6 @@ def main():
 				CANVAS_WIDTH,
 				CANVAS_HEIGHT,
 			)
-			if animation_direction > 0 and is_animating:
-				animation_name = "run_right"
-			elif animation_direction < 0 and is_animating:
-				animation_name = "run_left"
-			else:
-				animation_name = "idle_right" if facing_direction > 0 else "idle_left"
 			frame_x, frame_y, frame_width, frame_height = animation_frames[animation_name][frame_index]
 			character_sheet.clip_draw(
 				frame_x,
