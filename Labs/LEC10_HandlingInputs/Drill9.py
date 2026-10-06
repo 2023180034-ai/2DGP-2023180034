@@ -34,7 +34,7 @@ def create_animation_frames(sheet_height):
 	}
 
 
-def handle_events(running, moving_right, moving_left, up_pressed):
+def handle_events(running, moving_right, moving_left, up_pressed, down_pressed):
 	for event in get_events():
 		if event.type == SDL_QUIT:
 			running = False
@@ -47,6 +47,8 @@ def handle_events(running, moving_right, moving_left, up_pressed):
 				moving_left = True
 			elif event.key == SDLK_UP:
 				up_pressed = True
+			elif event.key == SDLK_DOWN:
+				down_pressed = True
 		elif event.type == SDL_KEYUP:
 			if event.key == SDLK_RIGHT:
 				moving_right = False
@@ -54,7 +56,9 @@ def handle_events(running, moving_right, moving_left, up_pressed):
 				moving_left = False
 			elif event.key == SDLK_UP:
 				up_pressed = False
-	return running, moving_right, moving_left, up_pressed
+			elif event.key == SDLK_DOWN:
+				down_pressed = False
+	return running, moving_right, moving_left, up_pressed, down_pressed
 
 
 def main():
@@ -66,6 +70,7 @@ def main():
 	moving_right = False
 	moving_left = False
 	up_pressed = False
+	down_pressed = False
 	character_x = CANVAS_WIDTH // 2
 	character_y = CANVAS_HEIGHT // 2
 	facing_direction = 1
@@ -75,11 +80,12 @@ def main():
 
 	try:
 		while running:
-			running, moving_right, moving_left, up_pressed = handle_events(
+			running, moving_right, moving_left, up_pressed, down_pressed = handle_events(
 				running,
 				moving_right,
 				moving_left,
 				up_pressed,
+				down_pressed,
 			)
 			if not running:
 				break
@@ -89,7 +95,7 @@ def main():
 			if direction != 0:
 				facing_direction = direction
 
-			is_animating = direction != 0 or up_pressed
+			is_animating = direction != 0 or up_pressed or down_pressed
 			animation_direction = direction if direction != 0 else facing_direction
 			if is_animating:
 				if animation_direction != previous_animation_direction:
