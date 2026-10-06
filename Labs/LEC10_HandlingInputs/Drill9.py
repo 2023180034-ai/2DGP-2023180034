@@ -11,7 +11,6 @@ CHARACTER_FRAME_SIZE = 100
 CHARACTER_DISPLAY_SIZE = 200
 ANIMATION_FRAME_COUNT = 8
 ANIMATION_FRAME_INTERVAL = 0.1
-CHARACTER_SPEED = 300
 ANIMATION_ROWS_FROM_TOP = {
 	"idle_right": 0,
 	"idle_left": 1,
@@ -35,7 +34,7 @@ def create_animation_frames(sheet_height):
 	}
 
 
-def handle_events(running, moving_right):
+def handle_events(running, moving_right, moving_left):
 	for event in get_events():
 		if event.type == SDL_QUIT:
 			running = False
@@ -44,9 +43,14 @@ def handle_events(running, moving_right):
 				running = False
 			elif event.key == SDLK_RIGHT:
 				moving_right = True
-		elif event.type == SDL_KEYUP and event.key == SDLK_RIGHT:
-			moving_right = False
-	return running, moving_right
+			elif event.key == SDLK_LEFT:
+				moving_left = True
+		elif event.type == SDL_KEYUP:
+			if event.key == SDLK_RIGHT:
+				moving_right = False
+			elif event.key == SDLK_LEFT:
+				moving_left = False
+	return running, moving_right, moving_left
 
 
 def main():
@@ -56,32 +60,37 @@ def main():
 	animation_frames = create_animation_frames(character_sheet.h)
 	running = True
 	moving_right = False
+	moving_left = False
 	character_x = CANVAS_WIDTH // 2
 	character_y = CANVAS_HEIGHT // 2
+	facing_direction = 1
+	previous_direction = 0
 	frame_index = 0
 	next_frame_time = get_time()
-	previous_time = get_time()
 
 	try:
 		while running:
-			running, moving_right = handle_events(running, moving_right)
+			running, moving_right, moving_left = handle_events(
+				running,
+				moving_right,
+				moving_left,
+			)
 			if not running:
 				break
 
 			current_time = get_time()
-			delta_time = current_time - previous_time
-			previous_time = current_time
-
-			if moving_right:
-				character_x = min(
-					CANVAS_WIDTH - CHARACTER_DISPLAY_SIZE // 2,
-					character_x + CHARACTER_SPEED * delta_time,
-				)
-				if current_time >= next_frame_time:
+			direction = int(moving_right) - int(moving_left)
+			if direction != 0:
+				facing_direction = direction
+				if direction != previous_direction:
+					frame_index = 0
+					next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
+				elif current_time >= next_frame_time:
 					frame_index = (frame_index + 1) % ANIMATION_FRAME_COUNT
 					next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
 			else:
 				frame_index = 0
+			previous_direction = direction
 
 			clear_canvas()
 			background.draw(
@@ -90,15 +99,20 @@ def main():
 				CANVAS_WIDTH,
 				CANVAS_HEIGHT,
 			)
-			animation_name = "run_right" if moving_right else "idle_right"
+			if direction > 0:
+				animation_name = "run_right"
+			elif direction < 0:
+				animation_name = "run_left"
+			else:
+				animation_name = "idle_right" if facing_direction > 0 else "idle_left"
 			frame_x, frame_y, frame_width, frame_height = animation_frames[animation_name][frame_index]
 			character_sheet.clip_draw(
 				frame_x,
 				frame_y,
 				frame_width,
 				frame_height,
-				CANVAS_WIDTH // 2,
-				CANVAS_HEIGHT // 2,
+				character_x,
+				character_y,
 				CHARACTER_DISPLAY_SIZE,
 				CHARACTER_DISPLAY_SIZE,
 			)
