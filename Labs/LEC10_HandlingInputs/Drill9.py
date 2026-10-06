@@ -101,6 +101,8 @@ def main():
 			if move_x != 0:
 				facing_direction = move_x
 
+			previous_x = character_x
+			previous_y = character_y
 			movement_length = hypot(move_x, move_y)
 			if movement_length != 0:
 				movement_step = CHARACTER_SPEED * delta_time / movement_length
@@ -120,7 +122,7 @@ def main():
 					),
 				)
 
-			is_animating = movement_length != 0
+			is_animating = character_x != previous_x or character_y != previous_y
 			animation_direction = move_x if move_x != 0 else facing_direction
 			if is_animating:
 				animation_name = "run_right" if animation_direction > 0 else "run_left"
