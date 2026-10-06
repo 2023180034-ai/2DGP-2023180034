@@ -19,6 +19,10 @@ ANIMATION_ROWS_FROM_TOP = {
 	"run_right": 2,
 	"run_left": 3,
 }
+RUN_FRAME_VISIBLE_BOUNDS = {
+	"run_right": (18, 20, 79, 88),
+	"run_left": (22, 20, 83, 88),
+}
 
 
 def create_animation_frames(sheet_height):
@@ -106,18 +110,25 @@ def main():
 			movement_length = hypot(move_x, move_y)
 			if movement_length != 0:
 				movement_step = CHARACTER_SPEED * delta_time / movement_length
-				half_character_size = CHARACTER_DISPLAY_SIZE // 2
+				movement_direction = move_x if move_x != 0 else facing_direction
+				movement_animation = "run_right" if movement_direction > 0 else "run_left"
+				min_x, min_y, max_x, max_y = RUN_FRAME_VISIBLE_BOUNDS[movement_animation]
+				scale = CHARACTER_DISPLAY_SIZE / CHARACTER_FRAME_SIZE
+				left_extent = (CHARACTER_FRAME_SIZE / 2 - min_x) * scale
+				right_extent = (max_x + 1 - CHARACTER_FRAME_SIZE / 2) * scale
+				top_extent = (CHARACTER_FRAME_SIZE / 2 - min_y) * scale
+				bottom_extent = (max_y + 1 - CHARACTER_FRAME_SIZE / 2) * scale
 				character_x = max(
-					half_character_size,
+					left_extent,
 					min(
-						CANVAS_WIDTH - half_character_size,
+						CANVAS_WIDTH - right_extent,
 						character_x + move_x * movement_step,
 					),
 				)
 				character_y = max(
-					half_character_size,
+					bottom_extent,
 					min(
-						CANVAS_HEIGHT - half_character_size,
+						CANVAS_HEIGHT - top_extent,
 						character_y + move_y * movement_step,
 					),
 				)
