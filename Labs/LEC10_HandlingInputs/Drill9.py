@@ -34,7 +34,7 @@ def create_animation_frames(sheet_height):
 	}
 
 
-def handle_events(running, moving_right, moving_left):
+def handle_events(running, moving_right, moving_left, up_pressed):
 	for event in get_events():
 		if event.type == SDL_QUIT:
 			running = False
@@ -45,12 +45,16 @@ def handle_events(running, moving_right, moving_left):
 				moving_right = True
 			elif event.key == SDLK_LEFT:
 				moving_left = True
+			elif event.key == SDLK_UP:
+				up_pressed = True
 		elif event.type == SDL_KEYUP:
 			if event.key == SDLK_RIGHT:
 				moving_right = False
 			elif event.key == SDLK_LEFT:
 				moving_left = False
-	return running, moving_right, moving_left
+			elif event.key == SDLK_UP:
+				up_pressed = False
+	return running, moving_right, moving_left, up_pressed
 
 
 def main():
@@ -61,19 +65,21 @@ def main():
 	running = True
 	moving_right = False
 	moving_left = False
+	up_pressed = False
 	character_x = CANVAS_WIDTH // 2
 	character_y = CANVAS_HEIGHT // 2
 	facing_direction = 1
-	previous_direction = 0
+	previous_animation_direction = None
 	frame_index = 0
 	next_frame_time = get_time()
 
 	try:
 		while running:
-			running, moving_right, moving_left = handle_events(
+			running, moving_right, moving_left, up_pressed = handle_events(
 				running,
 				moving_right,
 				moving_left,
+				up_pressed,
 			)
 			if not running:
 				break
@@ -82,7 +88,11 @@ def main():
 			direction = int(moving_right) - int(moving_left)
 			if direction != 0:
 				facing_direction = direction
-				if direction != previous_direction:
+
+			is_animating = direction != 0 or up_pressed
+			animation_direction = direction if direction != 0 else facing_direction
+			if is_animating:
+				if animation_direction != previous_animation_direction:
 					frame_index = 0
 					next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
 				elif current_time >= next_frame_time:
@@ -90,7 +100,7 @@ def main():
 					next_frame_time = current_time + ANIMATION_FRAME_INTERVAL
 			else:
 				frame_index = 0
-			previous_direction = direction
+			previous_animation_direction = animation_direction if is_animating else None
 
 			clear_canvas()
 			background.draw(
@@ -99,9 +109,9 @@ def main():
 				CANVAS_WIDTH,
 				CANVAS_HEIGHT,
 			)
-			if direction > 0:
+			if animation_direction > 0 and is_animating:
 				animation_name = "run_right"
-			elif direction < 0:
+			elif animation_direction < 0 and is_animating:
 				animation_name = "run_left"
 			else:
 				animation_name = "idle_right" if facing_direction > 0 else "idle_left"
