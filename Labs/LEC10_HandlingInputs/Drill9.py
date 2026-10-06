@@ -104,8 +104,21 @@ def main():
 			movement_length = hypot(move_x, move_y)
 			if movement_length != 0:
 				movement_step = CHARACTER_SPEED * delta_time / movement_length
-				character_x += move_x * movement_step
-				character_y += move_y * movement_step
+				half_character_size = CHARACTER_DISPLAY_SIZE // 2
+				character_x = max(
+					half_character_size,
+					min(
+						CANVAS_WIDTH - half_character_size,
+						character_x + move_x * movement_step,
+					),
+				)
+				character_y = max(
+					half_character_size,
+					min(
+						CANVAS_HEIGHT - half_character_size,
+						character_y + move_y * movement_step,
+					),
+				)
 
 			is_animating = movement_length != 0
 			animation_direction = move_x if move_x != 0 else facing_direction
