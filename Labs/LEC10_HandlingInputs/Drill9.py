@@ -1,8 +1,11 @@
+from pathlib import Path
+
 from pico2d import *
 
 
 CANVAS_WIDTH = 800
 CANVAS_HEIGHT = 600
+BACKGROUND_PATH = Path(__file__).resolve().parent / "TUK_GROUND.png"
 
 
 def handle_events():
@@ -16,13 +19,18 @@ def handle_events():
 
 def main():
 	open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+	background = load_image(str(BACKGROUND_PATH))
 	running = True
 
 	try:
 		while running:
 			clear_canvas()
-
-			# Draw the current animation frame here.
+			background.draw(
+				CANVAS_WIDTH // 2,
+				CANVAS_HEIGHT // 2,
+				CANVAS_WIDTH,
+				CANVAS_HEIGHT,
+			)
 
 			update_canvas()
 			running = handle_events()
