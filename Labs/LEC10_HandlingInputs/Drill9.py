@@ -1,4 +1,5 @@
 from pathlib import Path
+from math import hypot
 
 from pico2d import *
 
@@ -11,6 +12,7 @@ CHARACTER_FRAME_SIZE = 100
 CHARACTER_DISPLAY_SIZE = 200
 ANIMATION_FRAME_COUNT = 8
 ANIMATION_FRAME_INTERVAL = 0.1
+CHARACTER_SPEED = 300
 ANIMATION_ROWS_FROM_TOP = {
 	"idle_right": 0,
 	"idle_left": 1,
@@ -77,6 +79,7 @@ def main():
 	previous_animation_name = None
 	frame_index = 0
 	next_frame_time = get_time()
+	previous_time = get_time()
 
 	try:
 		while running:
@@ -91,12 +94,21 @@ def main():
 				break
 
 			current_time = get_time()
-			direction = int(moving_right) - int(moving_left)
-			if direction != 0:
-				facing_direction = direction
+			delta_time = current_time - previous_time
+			previous_time = current_time
+			move_x = int(moving_right) - int(moving_left)
+			move_y = int(up_pressed) - int(down_pressed)
+			if move_x != 0:
+				facing_direction = move_x
 
-			is_animating = direction != 0 or up_pressed or down_pressed
-			animation_direction = direction if direction != 0 else facing_direction
+			movement_length = hypot(move_x, move_y)
+			if movement_length != 0:
+				movement_step = CHARACTER_SPEED * delta_time / movement_length
+				character_x += move_x * movement_step
+				character_y += move_y * movement_step
+
+			is_animating = movement_length != 0
+			animation_direction = move_x if move_x != 0 else facing_direction
 			if is_animating:
 				animation_name = "run_right" if animation_direction > 0 else "run_left"
 			else:
